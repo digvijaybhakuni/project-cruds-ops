@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-<beans>
-	
-	<import resource="WEB-INF/spring-hibernate-config.xml"/>
-	
-	<!-- Business Objects -->
-	<bean id="projectDao" 
-			class="in.rssquarz.demo.dao.impl.ProjectDAOImpl" singleton="false">
-			<property name="template" ref="hTemplate"/>  
-	</bean>
-	
-	<!-- Business Objects -->
-	<bean id="projectService" 
-			class="in.rssquarz.demo.service.impl.ProjectServiceImpl">
-			 <lookup-method name="getProjectDao" bean="projectDao" />
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>WEB-INF/app.properties</value>
+		</property>
 	</bean>
 
-	<!-- Actions Classes -->    
-	<bean name="/login" class="in.rssquarz.demo.action.ProjectAction">
-		<property name="service"  ref="projectService"/>
+	<import resource="spring-hibernate-config.xml" />
+
+	<bean id="projectDAO" class="in.rssquarz.demo.dao.impl.ProjectDAOImpl" scope="prototype">
+		<property name="hibernateTemplate" ref="hTemplate" />
 	</bean>
-	
+
+	<bean id="service" class="in.rssquarz.demo.service.impl.ProjectServiceImpl" scope="singleton">
+		<lookup-method name="createProjectDao" bean="projectDAO" />
+<!-- 		<property name="projectDAO" ref="projectDAO"/> -->
+	</bean>
+
+	<bean name="/project" class="in.rssquarz.demo.action.ProjectAction">
+		<property name="service" ref="service" />
+	</bean>
+
 </beans>

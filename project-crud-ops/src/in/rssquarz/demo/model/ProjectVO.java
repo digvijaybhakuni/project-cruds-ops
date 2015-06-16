@@ -3,9 +3,12 @@
  */
 package in.rssquarz.demo.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -20,9 +23,17 @@ import in.rssquarz.demo.model.constants.SubCategory;
  * @author digvijayb
  *
  */
+@Entity
 @Table(name="ProjectData")
 @Access(AccessType.FIELD)
-public class ProjectVO {
+public class ProjectVO implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8686258342187246412L;
+
+
 
 	/**
 	 * 
@@ -51,7 +62,7 @@ public class ProjectVO {
 	private Category category;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name = "subcategory",  nullable=false)
+	@Column(name = "subcategory",  nullable=true)
 	private SubCategory subCategory;
 	
 	
@@ -92,11 +103,22 @@ public class ProjectVO {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
+	
+	public void setCategoryStr(String category) {
+		System.out.println(category+" cat");
+		this.category = Category.get(category);
+	}
+	
 	public SubCategory getSubCategory() {
 		return subCategory;
 	}
 	public void setSubCategory(SubCategory subCategory) {
 		this.subCategory = subCategory;
+	}
+	
+	public void setSubCategoryStr(String subCategoryStr) {
+		System.out.println(subCategoryStr + " sub");
+		this.subCategory = SubCategory.get(subCategoryStr);
 	}
 	
 	

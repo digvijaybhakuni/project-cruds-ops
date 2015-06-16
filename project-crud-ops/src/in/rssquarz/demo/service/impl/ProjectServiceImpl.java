@@ -1,46 +1,50 @@
 package in.rssquarz.demo.service.impl;
 
-import java.util.List;
-
 import in.rssquarz.demo.dao.ProjectDAO;
 import in.rssquarz.demo.model.ProjectVO;
 import in.rssquarz.demo.service.ProjectService;
 
-public abstract class ProjectServiceImpl implements ProjectService{
+import java.util.List;
 
-	protected abstract ProjectDAO getProjectDao();
+public abstract class ProjectServiceImpl implements ProjectService {
+
+	private ProjectDAO projectDAO;
+	
+	public void setProjectDAO(ProjectDAO projectDAO){
+		this.projectDAO = projectDAO;
+	}
+	
+	private ProjectDAO getProjectDAO(){
+		return this.projectDAO;
+	}
 	
 	public ProjectServiceImpl() {
 	}
 
 	@Override
 	public List<ProjectVO> getlistOfProject() {
-		// TODO Auto-generated method stub
-		return null;
+		return createProjectDao().getlistOfProject();
 	}
 
 	@Override
 	public ProjectVO editProject(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return createProjectDao().editProject(id);
 	}
 
 	@Override
 	public boolean updateProject(ProjectVO projectVO) {
-		// TODO Auto-generated method stub
-		return false;
+		return createProjectDao().updateProject(projectVO);
 	}
 
 	@Override
 	public boolean addProject(ProjectVO projectVO) {
-		// TODO Auto-generated method stub
-		return false;
+		return createProjectDao().addProject(projectVO);
 	}
 
 	@Override
 	public boolean deleteProject(ProjectVO projectVO) {
-		// TODO Auto-generated method stub
-		return false;
+		return createProjectDao().deleteProject(projectVO);
 	}
-
+	
+	protected abstract ProjectDAO createProjectDao();
 }

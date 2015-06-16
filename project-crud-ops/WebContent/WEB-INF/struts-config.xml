@@ -3,35 +3,37 @@
           "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
           "http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
 <struts-config>
-	
+
 	<form-beans>
-		<form-bean name="LoginForm" type="in.rssquarz.demo.action.form.ProjectForm" />
+		<form-bean name="projectForm" type="in.rssquarz.demo.action.form.ProjectForm" />
 	</form-beans>
 
 	<global-exceptions></global-exceptions>
 	<global-forwards></global-forwards>
 
 	<action-mappings>
-		<action path="/project" name="LoginForm" validate="true" input="/index.jsp"
-			parameter="req">
-			<forward name="projForm" path="jsp/projectForm.jsp" />
-			<forward name="projForm" path="jsp/projectList.jsp" />
+		<action path="/index" type="org.apache.struts.actions.ForwardAction"
+			parameter="/jsp/index.jsp"></action>
+
+		<action path="/project" name="projectForm" validate="true" input="/index.jsp"
+			parameter="req" scope="request">
+			<forward name="projForm" path="/jsp/projectForm.jsp" />
+			<forward name="listing" path="/jsp/projectList.jsp" />
+			<forward name="redirectTolist" path="project.do?req=list"  redirect="true"/>
 		</action>
 	</action-mappings>
 
 
-	
 
- 	<controller>
+
+	<controller>
 		<set-property property="processorClass"
 			value="org.springframework.web.struts.DelegatingRequestProcessor" />
 	</controller>
 
 	<message-resources parameter="MessageResource"></message-resources>
 
-	<!-- <plug-in className="org.springframework.web.struts.ContextLoaderPlugIn"> -->
-	<!-- <set-property property="contextConfigLocation" -->
-	<!-- value="/WEB-INF/ApplicationContext.xml"/> -->
-	<!-- </plug-in> -->
-
+	<plug-in className="org.springframework.web.struts.ContextLoaderPlugIn">
+		<set-property property="contextConfigLocation" value="/WEB-INF/ApplicationContext.xml" />
+	</plug-in>
 </struts-config>

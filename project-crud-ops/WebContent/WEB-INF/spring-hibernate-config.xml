@@ -14,9 +14,9 @@
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="annotatedClasses">
+		<property name="annotatedClasses" > <!--  value="in.rssquarz.demo.model.ProjectVO"> -->
 			<list>
-				<value>in.rssquarz.demo.model.Project</value>
+				<value>in.rssquarz.demo.model.ProjectVO</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

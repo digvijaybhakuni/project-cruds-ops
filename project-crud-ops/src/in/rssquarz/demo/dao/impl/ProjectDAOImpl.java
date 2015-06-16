@@ -20,36 +20,36 @@ public class ProjectDAOImpl extends HibernateDaoSupport implements ProjectDAO {
 	 * 
 	 */
 	public ProjectDAOImpl() {
+		System.out.println("ProjectDAOImpl CREATED");
 	}
 
 	@Override
 	public List<ProjectVO> getlistOfProject() {
-		
-		return null;
+		return getHibernateTemplate().loadAll(ProjectVO.class);
 	}
 
 	@Override
 	public ProjectVO editProject(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return getHibernateTemplate().get(ProjectVO.class, id);
 	}
 
 	@Override
 	public boolean updateProject(ProjectVO projectVO) {
-		// TODO Auto-generated method stub
-		return false;
+		getHibernateTemplate().update(projectVO);
+		return true;
 	}
 
 	@Override
 	public boolean addProject(ProjectVO projectVO) {
-		// TODO Auto-generated method stub
-		return false;
+		getHibernateTemplate().save(projectVO);
+		return true;
 	}
 
 	@Override
 	public boolean deleteProject(ProjectVO projectVO) {
-		// TODO Auto-generated method stub
-		return false;
+		getHibernateTemplate().bulkUpdate("DELETE from ProjectVO where Id = ?", projectVO.getId());
+		return true;
 	}
 
 }
