@@ -20,12 +20,11 @@ public class ProjectDAOImpl extends HibernateDaoSupport implements ProjectDAO {
 	 * 
 	 */
 	public ProjectDAOImpl() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public List<ProjectVO> getlistOfProject() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 

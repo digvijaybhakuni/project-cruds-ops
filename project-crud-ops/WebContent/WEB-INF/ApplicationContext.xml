@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	
+	<import resource="WEB-INF/spring-hibernate-config.xml"/>
+	
+	<!-- Business Objects -->
+	<bean id="projectDao" 
+			class="in.rssquarz.demo.dao.impl.ProjectDAOImpl" singleton="false">
+			<property name="template" ref="hTemplate"/>  
+	</bean>
+	
+	<!-- Business Objects -->
+	<bean id="projectService" 
+			class="in.rssquarz.demo.service.impl.ProjectServiceImpl">
+			 <lookup-method name="getProjectDao" bean="projectDao" />
+	</bean>
+
+	<!-- Actions Classes -->    
+	<bean name="/login" class="in.rssquarz.demo.action.ProjectAction">
+		<property name="service"  ref="projectService"/>
+	</bean>
+	
+</beans>
